@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cifrador de Palabras</title>
+    <style>
+        body {
+            background-color: blue;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+        }
+        textarea {
+            width: 300px;
+            height: 100px;
+            margin-bottom: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cifrador de Palabras</h1>
+        <textarea id="inputText" placeholder="Escribe tu frase aquí..."></textarea>
+        <br>
+        <button onclick="cifrar()">Cifrar</button>
+        <div class="result" id="resultado"></div>
+    </div>
+
+    <script>
+        function cifrar() {
+            const texto = document.getElementById('inputText').value;
+            const desplazamiento = 3; // Desplazamiento de 3 posiciones en el alfabeto
+            let resultado = '';
+
+            for (let i = 0; i < texto.length; i++) {
+                let char = texto[i];
+                if (char.match(/[a-z]/i)) {
+                    const codigo = texto.charCodeAt(i);
+                    if (codigo >= 65 && codigo <= 90) {
+                        char = String.fromCharCode(((codigo - 65 + desplazamiento) % 26) + 65);
+                    } else if (codigo >= 97 && codigo <= 122) {
+                        char = String.fromCharCode(((codigo - 97 + desplazamiento) % 26) + 97);
+                    }
+                }
+                resultado += char;
+            }
+
+            document.getElementById('resultado').innerText = "Texto cifrado: " + resultado;
+        }
+    </script>
+</body>
+</html>
